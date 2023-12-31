@@ -4,13 +4,13 @@ import "./FormAposta.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const FormAposta = () => {
+const FormAposta = ({ onApostaSubmit, valorDisponivel, onPassarTempo }) => {
   const [chuteValorEthereum, setChuteValorEthereum] = useState(0);
   const [valorAposta, setValorAposta] = useState(0);
 
   const [btnDisabled, setbtnDisabled] = useState(true);
-  const [mensagem, setMensagem] = useState('');
-  const [corMensagem, setCorMensagem] = useState('');
+  const [mensagem, setMensagem] = useState("");
+  const [corMensagem, setCorMensagem] = useState("");
 
   const handleChuteValorEthereumChange = (event) => {
     setChuteValorEthereum(event.target.value);
@@ -23,24 +23,27 @@ const FormAposta = () => {
   const gerarAposta = (event) => {
     event.preventDefault();
 
-    if (valorAposta > 0 && chuteValorEthereum > 0) {
-        setbtnDisabled(false);
-        setCorMensagem('#90ee90')
-        setMensagem('Aposta aprovada, passe o tempo para poder ver o resultado!')
-    }else{
-        setCorMensagem('red')
-        setMensagem('Aposta Reprovada, corrija os valores informados!')
-    }
+    if (valorAposta > 0 && chuteValorEthereum > 0 && valorAposta <= valorDisponivel) {
+      setValorAposta(0);
+      setChuteValorEthereum(0);
+      setbtnDisabled(false);
+      setCorMensagem("#90ee90");
+      setMensagem("Aposta aprovada, passe o tempo para poder ver o resultado!");
 
+      onApostaSubmit(valorAposta, chuteValorEthereum)
+    } else {
+      setCorMensagem("red");
+      setMensagem("Aposta Reprovada, corrija os valores informados!");
+    }
   };
 
   const PassarDias = (event) => {
     event.preventDefault();
 
     setbtnDisabled(true);
-    setMensagem('');
-    setValorAposta(0);
-    setChuteValorEthereum(0);
+    setMensagem("");
+
+    onPassarTempo()
   };
 
   return (
@@ -53,7 +56,7 @@ const FormAposta = () => {
           <Form.Control
             type="number"
             className="input"
-            placeholder="Ex: 2300"
+            placeholder="Ex: 2300.00"
             value={chuteValorEthereum}
             onChange={(e) => handleChuteValorEthereumChange(e)}
           />
@@ -65,7 +68,7 @@ const FormAposta = () => {
           <Form.Control
             type="number"
             className="input"
-            placeholder="Ex: 10"
+            placeholder="Ex: 10.00"
             value={valorAposta}
             onChange={(e) => handleValorApostaChange(e)}
           />
@@ -79,7 +82,9 @@ const FormAposta = () => {
           Gerar Aposta
         </Button>
       </Form>
-      <span style={{color: `${corMensagem}`, fontSize: 'medium'}}>{mensagem}</span>
+      <span style={{ color: `${corMensagem}`, fontSize: "medium" }}>
+        {mensagem}
+      </span>
       <Button
         variant="success"
         type="button"
