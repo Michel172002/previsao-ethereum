@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Previsão Ethereum - Simulador de Apostas com React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto simples permite que o usuário faça previsões sobre o valor futuro da moeda Ethereum, com valores simulados.
 
-## Available Scripts
+## Como Testar
 
-In the project directory, you can run:
+- Clone o repositório: `git clone git@github.com:Michel172002/previsao-ethereum.git`
+- Entre no diretório do projeto: `cd previsao-ethereum`
+- Instale as dependências: `npm install`
+- Inicie o projeto: `npm start`
 
-### `npm start`
+## Descrição das Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Tabela
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- À esquerda, uma tabela simula as apostas do usuário e de outros usuários (oponentes recebem o mesmo valor da sua aposta).
+- Abaixo da tabela, o valor total do prêmio é exibido, calculado como 80% da soma das apostas.
 
-### `npm test`
+### Formulário da Aposta
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Dois inputs permitem que o usuário insira o valor que acredita que a moeda Ethereum terá em 2 dias (simulado) e o valor da aposta desejada.
+- Dois botões: o primeiro verifica e gera a aposta se válida, habilitando o segundo botão para simular os 2 dias. O segundo botão mostra se a aposta foi acertada.
+- O valor da moeda varia aleatoriamente entre R$ 2.000,00 e R$ 3.000,00 cada vez que o botão de passar o tempo é clicado.
 
-### `npm run build`
+### Informações
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- À direita, informações sobre o valor atual da moeda e o saldo disponível para apostas.
+- Se o saldo ficar em R$ 0,00, um botão "RESET" aparecerá para reiniciar o saldo para R$ 2.000,00.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Dica
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para facilitar os testes em caso de acerto da aposta, no arquivo `App.js`, na linha 49, a verificação do chute igual a 12 está comentada. Descomente essa linha e comente a linha 48 para facilitar os testes corretos.
 
-### `npm run eject`
+```javascript
+const checkChute = () => {
+    // var resultado = chuteValorEthereum == precoEthereum;
+    var resultado = (chuteValorEthereum == 12)
+    setAcertouChute(resultado);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    if (resultado) {
+      gerarPremio();
+    }
+};
