@@ -23,14 +23,18 @@ const FormAposta = ({ onApostaSubmit, valorDisponivel, onPassarTempo }) => {
   const gerarAposta = (event) => {
     event.preventDefault();
 
-    if (valorAposta > 0 && chuteValorEthereum > 0 && valorAposta <= valorDisponivel) {
+    if (
+      valorAposta > 0 &&
+      chuteValorEthereum > 0 &&
+      valorAposta <= valorDisponivel
+    ) {
       setValorAposta(0);
       setChuteValorEthereum(0);
       setbtnDisabled(false);
       setCorMensagem("#90ee90");
       setMensagem("Aposta aprovada, passe o tempo para poder ver o resultado!");
 
-      onApostaSubmit(valorAposta, chuteValorEthereum)
+      onApostaSubmit(valorAposta, chuteValorEthereum);
     } else {
       setCorMensagem("red");
       setMensagem("Aposta Reprovada, corrija os valores informados!");
@@ -43,7 +47,7 @@ const FormAposta = ({ onApostaSubmit, valorDisponivel, onPassarTempo }) => {
     setbtnDisabled(true);
     setMensagem("");
 
-    onPassarTempo()
+    onPassarTempo();
   };
 
   return (
@@ -60,6 +64,7 @@ const FormAposta = ({ onApostaSubmit, valorDisponivel, onPassarTempo }) => {
             value={chuteValorEthereum}
             onChange={(e) => handleChuteValorEthereumChange(e)}
           />
+          <Form.Text className="text-white">Ex: 1234.56 ou 1234</Form.Text>
         </Form.Group>
         <Form.Group className="container-form-group">
           <Form.Label className="text-white">
@@ -72,6 +77,8 @@ const FormAposta = ({ onApostaSubmit, valorDisponivel, onPassarTempo }) => {
             value={valorAposta}
             onChange={(e) => handleValorApostaChange(e)}
           />
+
+          <Form.Text className="text-white">Ex: 1234.56 ou 1234</Form.Text>
         </Form.Group>
         <Button
           className="btn-submit"

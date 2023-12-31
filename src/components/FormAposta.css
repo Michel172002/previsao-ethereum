@@ -8,11 +8,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .container-form .input{
     width: 150px;
-    margin-bottom: 40px;
 }
 
 .btn-submit{
