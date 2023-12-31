@@ -10,22 +10,22 @@ import FormAposta from "./components/FormAposta";
 import CardInformacoes from "./components/CardInformacoes";
 
 function App() {
-  const [valorAposta, setValorAposta] = useState(0.00);
-  const [chuteValorEthereum, setChuteValorEthereum] = useState(0.00);
+  const [valorAposta, setValorAposta] = useState(0.0);
+  const [chuteValorEthereum, setChuteValorEthereum] = useState(0.0);
 
-  const [precoEthereum, setPrecoEthereum] = useState(2500.00);
-  const [valorDisponivel, setValorDisponivel] = useState(2000.00);
+  const [precoEthereum, setPrecoEthereum] = useState(2500.0);
+  const [valorDisponivel, setValorDisponivel] = useState(2000.0);
 
   const [acertouChute, setAcertouChute] = useState(false);
   const [hiddenMensagemResultado, setHiddenMensagemResultado] = useState(true);
 
-  const [valorPremio, setValorPremio] = useState(0.00);
+  const [valorPremio, setValorPremio] = useState(0.0);
 
   const handleApostaSubmit = (valorAposta, chuteValorEthereum) => {
     setChuteValorEthereum(chuteValorEthereum);
     setValorAposta(valorAposta);
     setValorDisponivel(valorDisponivel - valorAposta);
-    setHiddenMensagemResultado(true)
+    setHiddenMensagemResultado(true);
   };
 
   const handlePassarDias = () => {
@@ -41,24 +41,24 @@ function App() {
   };
 
   const resetCarteira = () => {
-    setValorDisponivel(2000)
-  }
+    setValorDisponivel(2000);
+  };
 
   const checkChute = () => {
-    var resultado = (chuteValorEthereum == precoEthereum)
+    var resultado = chuteValorEthereum == precoEthereum;
     //var resultado = (chuteValorEthereum == 12)
-    setAcertouChute(resultado)
+    setAcertouChute(resultado);
 
-    if(resultado){
-      gerarPremio()
+    if (resultado) {
+      gerarPremio();
     }
-  }
+  };
 
   const gerarPremio = () => {
-    var premio = ((10 * valorAposta) * 0.8).toFixed(2)
-    setValorPremio(() => premio)
-    setValorDisponivel((anterior) => anterior + parseFloat(premio))
-  }
+    var premio = (10 * valorAposta * 0.8).toFixed(2);
+    setValorPremio(() => premio);
+    setValorDisponivel((anterior) => anterior + parseFloat(premio));
+  };
 
   return (
     <div className="App">

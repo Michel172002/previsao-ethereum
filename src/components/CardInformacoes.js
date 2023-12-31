@@ -10,12 +10,11 @@ const CardInformacoes = ({
   valorPremio,
   onResetCarteira,
 }) => {
-
   const resetCarteira = (event) => {
     event.preventDefault();
 
-    onResetCarteira()
-  }
+    onResetCarteira();
+  };
 
   return (
     <Container className="container-info">
@@ -32,14 +31,18 @@ const CardInformacoes = ({
           variant="success"
           type="button"
           hidden={valorDisponivel !== 0}
-          onClick={(e) => resetCarteira(e) }
+          onClick={(e) => resetCarteira(e)}
         >
           RESET
         </Button>
       </Row>
       <Row hidden={hiddenResultado}>
-        <span hidden={acertouChute} style={{color: 'red'}}>Você não acertou!</span>
-        <span hidden={!acertouChute} style={{color: '#90ee90'}}>Parabens você ganhou o premio total de R${valorPremio}!</span>
+        <span hidden={acertouChute} style={{ color: "red" }}>
+          Você não acertou!
+        </span>
+        <span hidden={!acertouChute} style={{ color: "#90ee90" }}>
+          Parabens você ganhou o premio total de R${valorPremio}!
+        </span>
       </Row>
     </Container>
   );
